@@ -1,0 +1,78 @@
+# """
+# 购物车管理系统
+# 使用字典存储商品数据，控制台菜单交互
+# 功能：
+# 1 添加购物车：录入商品名称、价格、数量，存入购物车
+# 2 修改购物车：输入商品名称，修改价格、数量
+# 3 删除购物车：输入商品名称，删除该商品
+# 4 查询购物车：打印，格式：商品名称：xxx，商品价格：xxx，商品数量：xxx
+# 5 退出购物车
+# """
+cart = {}
+print('欢迎使用购物车系统~')
+menu = """
+########## 购物车系统 ##########
+#        1. 添加购物车         #
+#        2. 修改购物车         #
+#        3. 删除购物车         #
+#        4. 查询购物车         #
+#        5. 退出购物车         #
+###############################
+"""
+
+
+while True:
+    print(menu)
+    choose = input("请选择要执行的操作：")
+    match choose:  #cart = {"mate80":{"价格"：xxx ， ”数量“ ： xxx  .......}}
+        case "1":
+            name = input("请输入商品名称:")
+            price = float(input("请输入商品价格:"))
+            num = int( input("请输入商品数量:"))
+            if name  in cart:
+                print("原购物车已存在该商品")
+            else:
+                cart[name] = {"价格":price , "数量" :num}
+                print(f"您添加的商品名为：{name} , 价格为：{price} , 数量：{num}")
+        case "2":
+            name = input("请输入要修改的商品名称:")
+            if name not  in cart:
+                print("购物车里面没有这个商品，请核对后再试")
+            price = float(input("请输入要修改的商品最终价格:"))
+            num = int(input("请输入要修改的商品的数量:"))
+            cart[name] = {"价格": price, "数量": num}
+            print("已完成修改操作")
+            print(f"您修改的商品名为：{name} , 价格已改为：{price} , 数量已改为：{num}")
+
+        case "3":
+            name = input("请输入要删除的商品名称:")
+            if name in cart:
+                del cart[name]
+                print(f"你的购物车里面的{name}已经被删除了哦")
+                if len(cart) == 0 :
+                    print("你的购物车里面没有东西了哦")
+                else :
+                    for g_name,g_info in cart.items():
+                        print(f'你的购物车里面还有{g_name}，价格：{g_info["价格"]} , 数量:{g_info["数量"]}')
+
+            else :
+                print("购物车里没有这样商品")
+
+        case "4":
+            # name = input("请输入要查询的商品名称:")
+            # if name in cart:
+            #     good_info = cart[name]  #cart是外层字典  这句代码就是定义内层字典为good_info
+            #     print(f'商品名称：{name},商品价格：{good_info["价格"]}，商品数量：{good_info["数量"]}')
+            # else :
+            #     print("没有")
+            if len(cart) == 0:
+                print("你的购物车里面没有东西了哦")
+            else:
+                for g_name, g_info in cart.items():
+                    print(f'你的购物车里面还有{g_name}，价格：{g_info["价格"]} , 数量:{g_info["数量"]}')
+
+        case "5":
+            print("退出购物车")
+            break
+        case _ :
+            print("非法操作")
