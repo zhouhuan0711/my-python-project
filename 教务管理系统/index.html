@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>星云教务 · 学生成绩管理</title><link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app-shell">
+<aside class="sidebar">
+  <div class="brand"><div class="brand-mark"><i></i><i></i><i></i></div><div><b>星云教务</b><small>STUDENT HUB</small></div></div>
+  <nav><a class="active" href="#overview"><span>⌂</span>总览</a><a href="#students"><span>▦</span>学生成绩</a><a href="#analysis"><span>◒</span>成绩分析</a></nav>
+  <div class="sidebar-bottom"><div class="help"><strong>?</strong><div><b>需要帮助？</b><small>成绩范围支持 0–100 分</small></div></div><div class="user"><div class="avatar indigo">教</div><div><b>教务管理员</b><small>管理员账户</small></div><button>⋯</button></div></div>
+</aside>
+<main>
+<header class="topbar"><div class="crumb">教务管理 <b>/</b> <strong>学生成绩</strong></div><div class="top-actions"><label class="search"><span>⌕</span><input id="globalSearch" placeholder="搜索学生姓名..." autocomplete="off"><kbd>⌘ K</kbd></label><button class="bell">♢<i></i></button><div class="avatar indigo">教</div></div></header>
+<section class="content" id="overview">
+  <div class="heading"><div><p class="eyebrow">2026 春季学期</p><h1>学生成绩总览</h1><p>集中管理学生成绩，快速掌握班级学习状态。</p></div><div class="actions"><button class="btn secondary" id="exportBtn">⇩ 导出数据</button><button class="btn primary" id="addBtn">＋ 添加学生</button></div></div>
+  <div class="stats">
+    <article class="stat blue"><span class="stat-icon">♙</span><label>学生总数</label><strong id="total">0</strong><small><em>本学期</em> 已录入学生</small></article>
+    <article class="stat green"><span class="stat-icon">⌁</span><label>班级平均分</label><strong id="average">0.0</strong><small><em>↑ 2.6%</em> 较上次记录</small></article>
+    <article class="stat amber"><span class="stat-icon">★</span><label>最高总分</label><strong id="highest">0</strong><small><em id="topName">暂无</em> 当前最高</small></article>
+    <article class="stat red"><span class="stat-icon">!</span><label>需要关注</label><strong id="attention">0</strong><small><em>总分低于 180</em> 建议及时跟进</small></article>
+  </div>
+  <div class="dash" id="analysis">
+    <section class="panel chart-panel"><div class="panel-head"><div><h2>成绩分布</h2><p>按总分区间查看班级分布</p></div><select id="subject"><option value="total">总分</option><option value="chinese">语文</option><option value="math">数学</option><option value="english">英语</option></select></div><div class="chart" id="chart"></div><div class="legend"><span><i class="blue-dot"></i>优秀</span><span><i class="green-dot"></i>良好</span><span><i class="amber-dot"></i>合格</span><span><i class="red-dot"></i>需关注</span></div></section>
+    <section class="panel ranking"><div class="panel-head"><div><h2>成绩排行榜</h2><p>按总分从高到低排列</p></div><button id="viewAll">查看全部 →</button></div><div id="ranking"></div></section>
+  </div>
+  <section class="panel table-panel" id="students"><div class="panel-head table-head"><div><h2>学生成绩列表</h2><p>共 <b id="count">0</b> 位学生，点击操作按钮管理成绩</p></div><div class="tools"><label class="search table-search"><span>⌕</span><input id="tableSearch" placeholder="搜索姓名..." autocomplete="off"></label><select id="filter"><option value="all">全部状态</option><option value="excellent">优秀（270+）</option><option value="good">良好（240–269）</option><option value="pass">合格（180–239）</option><option value="attention">需关注（180以下）</option></select><select id="sort"><option value="desc">总分最高</option><option value="asc">总分最低</option><option value="name">姓名排序</option></select></div></div><div class="table-wrap"><table><thead><tr><th>学生</th><th>语文</th><th>数学</th><th>英语</th><th>总分</th><th>平均分</th><th>状态</th><th>操作</th></tr></thead><tbody id="tbody"></tbody></table><div id="empty" class="empty" hidden><div>⌕</div><h3>没有找到学生</h3><p>试试更换搜索关键词或筛选条件。</p><button class="btn secondary" id="clear">清除筛选</button></div></div><div class="table-foot"><span id="summary">显示 0 位学生</span><span>第 1 页</span></div></section>
+  <footer>© 2026 星云教务系统 <span>数据仅保存在当前浏览器</span></footer>
+</section>
+</main></div>
+<div class="backdrop" id="modal" hidden><section class="modal"><div class="modal-head"><div><p class="eyebrow">学生档案</p><h2 id="modalTitle">添加学生</h2></div><button id="close">×</button></div><form id="form"><input type="hidden" id="editId"><label>学生姓名 <em>*</em><input id="name" maxlength="20" placeholder="请输入学生姓名"></label><div class="form-grid"><label>语文成绩 <em>*</em><input id="chinese" type="number" min="0" max="100" placeholder="0"></label><label>数学成绩 <em>*</em><input id="math" type="number" min="0" max="100" placeholder="0"></label><label>英语成绩 <em>*</em><input id="english" type="number" min="0" max="100" placeholder="0"></label></div><div class="preview">预计总分 <b id="preview">0</b><small>/ 300</small></div><p class="error" id="error"></p><div class="modal-actions"><button class="btn secondary" type="button" id="cancel">取消</button><button class="btn primary" type="submit" id="submit">✓ 保存学生</button></div></form></section></div><div class="toast" id="toast">✓ <span></span></div>
+<script src="app.js"></script>
+</body></html>
