@@ -19,7 +19,7 @@ st.set_page_config(
 st.title("周环的AI智能伴侣")
 
 # 设置logo，如果版本报错就注释这一行
-st.logo(".streamlit/古遗迹.png")
+# st.logo(".streamlit/古遗迹.png")
 # 初始化聊天记录
 if "messages" not in st.session_state:
     st.session_state.messages = []
